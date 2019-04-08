@@ -20,7 +20,7 @@ void startTests();
 void coutPDNF(string str);
 int main() {
 	using namespace std;
-	startTests();
+		startTests();
 	//createPDNF();
 	//testIsDNF();
 	std::cin.get();
@@ -35,16 +35,15 @@ void coutPDNF(string str)
 		cout << "\nFormula has  not pdnf.";
 		return;
 	}
-
-	cout << "\n(\n";
-
-	for (int i = 1; i < str.length() - 1; i++)
+	for (int i = 0; i < str.length(); i++)
 	{
+		if (i == 1 || i == str.length() - 1)
+			cout << "\n";
+
 		if (str[i] == '|')
 			cout << "|\n";
 		else cout << str[i];
 	}
-	cout << "\n)\n";
 }
 
 void startTests()
@@ -60,10 +59,10 @@ void startTests()
 }
 
 void createPDNF()
-{
+{//!A
 	string _formula;
 	do {
-		cout << "\nInpute logical formula(q for quit): ";
+		cout << "\n\nInpute logical formula(q for quit): ";
 		cin >> _formula;
 		LogicalFormula formula(_formula);
 		cout << endl << "\nPDNF:\n";
@@ -77,7 +76,7 @@ void testIsDNF()
 	string _formula = "sss";
 	while (_formula != "q")
 	{
-		cout << "\nInpute logical formula(q for quit): ";
+		cout << "\n\n\nInpute logical formula(q for quit): ";
 		cin >> _formula;
 		LogicalFormula formula(_formula);
 		if (formula.isDNF(&formula))

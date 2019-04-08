@@ -109,13 +109,13 @@ LogicalFormula::LogicalFormula(const std::string &_formula, logics::symbol _name
 
 bool LogicalFormula::checkBracketsForEachSubtree(LogicalFormula* lf) {
 
-	if (!isCorrectFormula)
-		return false;
-
 	if (lf == NULL)
 		return true;
 
-	if (isLiteral(lf) || (lf->left == NULL && lf->right == NULL))
+	if (!isCorrectFormula || (isLiteral(lf) && strchr(formula.c_str(), '!') && !strchr(formula.c_str(), ')')))
+		return false;
+
+	if (lf == NULL || isLiteral(lf) || (lf->left == NULL && lf->right == NULL))
 		return true;
 
 	if (lf->value != BRACKETS || lf->left != NULL)
@@ -406,7 +406,7 @@ bool LogicalFormula::isLiteral(const LogicalFormula* const _formula) {
 //рекурсивно проверяем, состоят ли поддеревья из конъюнктов или литератов
 bool  LogicalFormula::isDNF(const LogicalFormula* const _formula)
 {
-	if (!isFormula())
+	if (!isFormula() ||  (strchr(formula.c_str(), '0') || strchr(formula.c_str(), '1')))
 		return false;
 
 	if (_formula == NULL || isСonjunct(_formula))
@@ -446,7 +446,7 @@ std::string LogicalFormula::getUniqueNames() {
 1101
 0111
 0101
- и т.д.
+и т.д.
 */
 void  LogicalFormula::recSample(std::vector<std::string> &_sample, std::string str, size_t end, size_t k) {
 	for (size_t j = 1; j <= k; j++)
@@ -512,7 +512,7 @@ std::string setBracketsConjunct(std::string str)
 		if (str[i] == '&')
 			countConjunct++;
 
-		if (((i+1 < str.length() && str[i+1]=='&' )) && countConjunct > 0 && (strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ01)", str[i])))
+		if (((i + 1 < str.length() && str[i + 1] == '&')) && countConjunct > 0 && (strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ01)", str[i])))
 			res += ')';
 	}
 	res += ')';
@@ -564,7 +564,7 @@ LogicalFormula LogicalFormula::createPDNF() {
 
 	if (!isFormula())
 	{
-		LogicalFormula result("\nFormula has syntax error.");
+		LogicalFormula result("\nFormula has syntax error. ");
 		return result;
 	}
 

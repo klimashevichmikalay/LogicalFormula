@@ -61,16 +61,16 @@ namespace logics {
 		bool getResult();
 		//является ли формула ДНФ
 		bool isDNF(const LogicalFormula* const _formula);//+
-		//является ли формула конъюнктом
+														 //является ли формула конъюнктом
 		bool isСonjunct(const LogicalFormula* const _formula);//+
-		//является ли литералом
+															  //является ли литералом
 		bool isLiteral(const LogicalFormula* const _formula);//+
-		//создать СДНФ
+															 //создать СДНФ
 		LogicalFormula createPDNF();//+
-		//это создание всевозможных комбинаций из 1 и 0 к раз, вроде как массив сочетаний k раз из 1 и 0
+									//это создание всевозможных комбинаций из 1 и 0 к раз, вроде как массив сочетаний k раз из 1 и 0
 		std::vector<std::string> createBoolSample(size_t k);//+
-		//проверка синтаксиса на отсутствие символов не из алфавита и кванторов и
-		//на симметричное закрытие скобок
+															//проверка синтаксиса на отсутствие символов не из алфавита и кванторов и
+															//на симметричное закрытие скобок
 		bool isFormula();
 
 	private:
@@ -99,7 +99,7 @@ namespace logics {
 
 		//алфавит еще раз
 		std::string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01";//define
-		//для построения таблицы истинности, дальше будет подробнее
+															  //для построения таблицы истинности, дальше будет подробнее
 		std::map <logics::symbol, LogicalFormula> *mapOfFormuls = NULL;
 
 		//это типы
@@ -113,11 +113,11 @@ namespace logics {
 		//это для получения уникальных элементов алфавита в формуле перед потроением таблицы истинности
 		std::string getUniqueNames();//+
 
-		//рекурсия при вычислени всех сочетаний нужного размера из 1 и 0
-		//нужно для таблицы истинности
+									 //рекурсия при вычислени всех сочетаний нужного размера из 1 и 0
+									 //нужно для таблицы истинности
 		void recSample(std::vector<std::string> &_sample, std::string str, size_t end, size_t k);//+
 		std::vector<std::string>  LogicalFormula::createTruthTable();//+
-		//дальше это разбор созданной строки-формулы
+																	 //дальше это разбор созданной строки-формулы
 		void splitNegation(const std::string &_formula);
 		void splitWithBrackets(const std::string &_formula);
 		void splitSinglesValue(const std::string &_formula);

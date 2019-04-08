@@ -556,7 +556,7 @@ void testIsDNF1() {
 void testIsDNF2() {
 	cout << "testIsDNF2\n";
 	LogicalFormula formula("1");
-	assert(formula.isDNF(&formula) == true);
+	assert(formula.isDNF(&formula) == false);
 }
 
 void testIsDNF3() {
@@ -713,7 +713,7 @@ void testIsDNF24() {
 void testIsDNF25() {
 	cout << "testIsDNF25\n";
 	LogicalFormula formula("((1&(0&A))|(C|(0&M)))");
-	assert(formula.isDNF(&formula) == true);
+	assert(formula.isDNF(&formula) == false);
 }
 
 /////////////////////////////////////////////////////
@@ -920,10 +920,10 @@ void testCreatePDNF25() {
 
 void testCreatePDNF26() {
 	cout << "testCreatePDNF26\n";
-	LogicalFormula formula("((A&C)~(!B))");
+	LogicalFormula formula("!A");
 	LogicalFormula pdnf = formula.createPDNF();
 	//((((((!A)&(!C))&B) | (((!A)&C)&B)) | ((A&(!C))&B)) | ((A&C)&(!B)));
-	assert(!(pdnf.getFormula().compare("((((((!A)&(!C))&B)|(((!A)&C)&B))|((A&(!C))&B))|((A&C)&(!B)))")));
+	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
 }
 
 void testCreatePDNF27() {
@@ -931,7 +931,7 @@ void testCreatePDNF27() {
 	LogicalFormula formula("A|B&C)");
 	LogicalFormula pdnf = formula.createPDNF();
 
-	assert(!(pdnf.getFormula().compare("\nFormula has syntax error.")));
+	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
 }
 
 /////////////////////////////////////////////////////
@@ -1035,7 +1035,7 @@ void testCreatePDNF40() {
 void testIsDNF26() {
 	cout << "testIsDNF26\n";
 	LogicalFormula formula("(1&A)");
-	assert(formula.isDNF(&formula) == true);
+	assert(formula.isDNF(&formula) == false);
 }
 
 void testIsDNF27() {
@@ -1065,13 +1065,13 @@ void testIsDNF30() {
 void testIsDNF31() {
 	cout << "testIsDNF31\n";
 	LogicalFormula formula("((!A)&0)");
-	assert(formula.isDNF(&formula) == true);
+	assert(formula.isDNF(&formula) == false);
 }
 
 void testIsDNF32() {
 	cout << "testIsDNF32\n";
 	LogicalFormula formula("((A&0)|1)");
-	assert(formula.isDNF(&formula) == true);
+	assert(formula.isDNF(&formula) == false);
 }
 
 void testIsDNF33() {
