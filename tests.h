@@ -8,14 +8,12 @@
 // ÒÒ˚ÎÍ‡ ÒÚ‡Ú¸Ë: https://habr.com/ru/post/169381/
 // ‡‚ÚÓ ÒÚ‡Ú¸Ë: Ã‡ÍÒËÏ ¿¯ËÌÓ‚.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 #include <iostream>
 #include <cassert>
 #include "LogicalFormula.h"
-using namespace std;
-using namespace logics;
+#include "Algorithms.h"
 
+using namespace std;
 
 void testResult1() {
 	cout << "testResult1\n";
@@ -112,8 +110,8 @@ void testResult16() {
 	LogicalFormula formula1("(1|0)");//true
 	LogicalFormula formula2("(1->0)");//false	
 
-	map <logics::symbol, LogicalFormula> _mapOfFormuls = { { logics::A , formula1 },{ logics::B, formula2 } };
-	LogicalFormula formula("(A&B)", logics::NO_NAME, &_mapOfFormuls);
+	map <symbol, LogicalFormula> _mapOfFormuls = { {A , formula1 },{B, formula2 } };
+	LogicalFormula formula("(A&B)",NO_NAME, &_mapOfFormuls);
 	assert(formula.getResult() == false);
 }
 
@@ -122,9 +120,9 @@ void testResult17() {
 	LogicalFormula formula1("(1|0)");//true
 	LogicalFormula formula2("(1->0)");//false
 
-	map <logics::symbol, LogicalFormula> _mapOfFormuls =
-	{ { logics::A , formula1 },{ logics::B, formula2 } };
-	LogicalFormula formula("(A~B)", logics::NO_NAME, &_mapOfFormuls);
+	map <symbol, LogicalFormula> _mapOfFormuls =
+	{ { A , formula1 },{ B, formula2 } };
+	LogicalFormula formula("(A~B)", NO_NAME, &_mapOfFormuls);
 
 	assert(formula.getResult() == false);
 }
@@ -134,19 +132,19 @@ void testResult18() {
 
 	LogicalFormula formula1("(1|0)");//true
 	LogicalFormula formula2("(1->0)");//false
-	map <logics::symbol, LogicalFormula> _mapOfFormuls1 =
-	{ { logics::A , formula1 },{ logics::B, formula2 } };
-	LogicalFormula formula3("(A&B)", logics::NO_NAME, &_mapOfFormuls1);//false
+	map <symbol, LogicalFormula> _mapOfFormuls1 =
+	{ { A , formula1 },{ B, formula2 } };
+	LogicalFormula formula3("(A&B)", NO_NAME, &_mapOfFormuls1);//false
 
 	LogicalFormula formula21("(1|0)");//true
 	LogicalFormula formula22("(1->0)");//false
-	map <logics::symbol, LogicalFormula> _mapOfFormuls2 =
-	{ { logics::D, formula21 },{ logics::C, formula22 } };
-	LogicalFormula formula23("(C->D)", logics::NO_NAME, &_mapOfFormuls2);//true
+	map <symbol, LogicalFormula> _mapOfFormuls2 =
+	{ { D, formula21 },{ C, formula22 } };
+	LogicalFormula formula23("(C->D)", NO_NAME, &_mapOfFormuls2);//true
 
-	map <logics::symbol, LogicalFormula> _mapOfFormuls =
-	{ { logics::F, formula3 },{ logics::E, formula23 } };
-	LogicalFormula formula("(F->E)", logics::NO_NAME, &_mapOfFormuls);//true
+	map <symbol, LogicalFormula> _mapOfFormuls =
+	{ { F, formula3 },{ E, formula23 } };
+	LogicalFormula formula("(F->E)", NO_NAME, &_mapOfFormuls);//true
 	assert(formula.getResult() == true);
 }
 
@@ -155,20 +153,20 @@ void testResult19() {
 
 	LogicalFormula formula1("(1|0)");//true
 	LogicalFormula formula2("(1->0)");//false
-	map <logics::symbol, LogicalFormula> _mapOfFormuls1 =
-	{ { logics::A , formula1 },{ logics::B, formula2 } };
-	LogicalFormula formula3("(A~B)", logics::NO_NAME, &_mapOfFormuls1);//false
+	map <symbol, LogicalFormula> _mapOfFormuls1 =
+	{ { A , formula1 },{ B, formula2 } };
+	LogicalFormula formula3("(A~B)", NO_NAME, &_mapOfFormuls1);//false
 
 	LogicalFormula formula21("(1|0)");//true
 	LogicalFormula formula22("(1&0)");//false
-	map <logics::symbol, LogicalFormula> _mapOfFormuls2 =
-	{ { logics::D, formula21 },{ logics::C, formula22 } };
-	LogicalFormula formula23("(C->D)", logics::NO_NAME, &_mapOfFormuls2);//true
+	map <symbol, LogicalFormula> _mapOfFormuls2 =
+	{ { D, formula21 },{ C, formula22 } };
+	LogicalFormula formula23("(C->D)", NO_NAME, &_mapOfFormuls2);//true
 
 	//A - false, B - true
-	map <logics::symbol, LogicalFormula> _mapOfFormuls =
-	{ { logics::A, formula3 },{ logics::B, formula23 } };
-	LogicalFormula formula("(((!A)~B)->1)", logics::NO_NAME, &_mapOfFormuls);//
+	map <symbol, LogicalFormula> _mapOfFormuls =
+	{ { A, formula3 },{ B, formula23 } };
+	LogicalFormula formula("(((!A)~B)->1)", NO_NAME, &_mapOfFormuls);//
 	assert(formula.getResult() == true);
 }
 
@@ -177,19 +175,19 @@ void testResult20() {
 
 	LogicalFormula formula1("(1&1)");//true
 	LogicalFormula formula2("(!(1|0))");//false
-	map <logics::symbol, LogicalFormula> _mapOfFormuls1 =
-	{ { logics::A , formula1 },{ logics::B, formula2 } };
-	LogicalFormula formula3("(A~B)", logics::NO_NAME, &_mapOfFormuls1);//false
+	map <symbol, LogicalFormula> _mapOfFormuls1 =
+	{ { A , formula1 },{ B, formula2 } };
+	LogicalFormula formula3("(A~B)", NO_NAME, &_mapOfFormuls1);//false
 
 	LogicalFormula formula21("(0->0)");//true
 	LogicalFormula formula22("(1->0)");//false
-	map <logics::symbol, LogicalFormula> _mapOfFormuls2 =
-	{ { logics::D, formula21 },{ logics::C, formula22 } };
-	LogicalFormula formula23("(C->D)", logics::NO_NAME, &_mapOfFormuls2);//true
+	map <symbol, LogicalFormula> _mapOfFormuls2 =
+	{ { D, formula21 },{ C, formula22 } };
+	LogicalFormula formula23("(C->D)", NO_NAME, &_mapOfFormuls2);//true
 																			   //A - false, B - true
-	map <logics::symbol, LogicalFormula> _mapOfFormuls =
-	{ { logics::A, formula3 },{ logics::B, formula23 } };
-	LogicalFormula formula("((((!A)~B)->1)&0)", logics::NO_NAME, &_mapOfFormuls);//
+	map <symbol, LogicalFormula> _mapOfFormuls =
+	{ { A, formula3 },{ B, formula23 } };
+	LogicalFormula formula("((((!A)~B)->1)&0)", NO_NAME, &_mapOfFormuls);//
 	assert(formula.getResult() == false);
 }
 
@@ -411,110 +409,110 @@ void testSyntax35() {
 void testIsLiteral1() {
 	cout << "\ntestIsLiteral1\n";
 	LogicalFormula formula("A");
-	assert(formula.isLiteral(&formula) == true);
+	assert(isLiteral(&formula) == true);
 }
 
 void testIsLiteral2() {
 	cout << "testIsLiteral2\n";
 	LogicalFormula formula("0");
-	assert(formula.isLiteral(&formula) == true);
+	assert(isLiteral(&formula) == true);
 }
 
 void testIsLiteral3() {
 	cout << "testIsLiteral3\n";
 	LogicalFormula formula("!B");
-	assert(formula.isLiteral(&formula) == true);
+	assert(isLiteral(&formula) == true);
 }
 
 void testIsLiteral4() {
 	cout << "testIsLiteral4\n";
 	LogicalFormula formula("!1");
-	assert(formula.isLiteral(&formula) == true);
+	assert(isLiteral(&formula) == true);
 }
 
 void testIsLiteral5() {
 	cout << "testIsLiteral5\n";
 	LogicalFormula formula("(!1)");
-	assert(formula.isLiteral(&formula) == false);
+	assert(isLiteral(&formula) == false);
 }
 
 void testIsLiteral6() {
 	cout << "testIsLiteral6\n";
 	LogicalFormula formula("(A)");
-	assert(formula.isLiteral(&formula) == false);
+	assert(isLiteral(&formula) == false);
 }
 
 void testIsLiteral7() {
 	cout << "testIsLiteral7\n";
 	LogicalFormula formula("(A&B)");
-	assert(formula.isLiteral(&formula) == false);
+	assert(isLiteral(&formula) == false);
 }
 
 void testIsLiteral8() {
 	cout << "testIsLiteral8\n";
 	LogicalFormula formula("A&B");
-	assert(formula.isLiteral(&formula) == false);
+	assert(isLiteral(&formula) == false);
 }
 
 void testIsConjunct1() {
 	cout << "\ntestIsConjunct1\n";
 	LogicalFormula formula("A");
-	assert(formula.is—onjunct(&formula) == true);
+	assert(is—onjunct(&formula) == true);
 }
 
 void testIsConjunct2() {
 	cout << "testIsConjunct2\n";
 	LogicalFormula formula("(A&B)");
-	assert(formula.is—onjunct(&formula) == true);
+	assert(is—onjunct(&formula) == true);
 }
 
 void testIsConjunct3() {
 	cout << "testIsConjunct3\n";
 	LogicalFormula formula("(A&1)");
-	assert(formula.is—onjunct(&formula) == true);
+	assert(is—onjunct(&formula) == true);
 }
 
 void testIsConjunct4() {
 	cout << "testIsConjunct4\n";
 	LogicalFormula formula("0&1");
-	assert(formula.is—onjunct(&formula) == true);
+	assert(is—onjunct(&formula) == true);
 }
 
 void testIsConjunct5() {
 	cout << "testIsConjunct5\n";
 	LogicalFormula formula("1");
-	assert(formula.is—onjunct(&formula) == true);
+	assert(is—onjunct(&formula) == true);
 }
 
 void testIsConjunct6() {
 	cout << "testIsConjunct6\n";
 	LogicalFormula formula("(1&((1&A)&0))");
-	assert(formula.is—onjunct(&formula) == true);
+	assert(is—onjunct(&formula) == true);
 }
 
 void testIsConjunct7() {
 	cout << "testIsConjunct7\n";
 	LogicalFormula formula("(1&((1&A)|0))");
-	assert(formula.is—onjunct(&formula) == false);
+	assert(is—onjunct(&formula) == false);
 }
 
 void testIsConjunct8() {
 	cout << "testIsConjunct8\n";
 	LogicalFormula formula("(1&((1->A)&0))");
-	assert(formula.is—onjunct(&formula) == false);
+	assert(is—onjunct(&formula) == false);
 }
 
 void testSample1() {
 	cout << "\ntestSample1\n";
 	LogicalFormula formula("(1)");
-	vector<string> test = formula.createBoolSample(4);
+	vector<string> test = createBoolSample(4);
 	assert(test.size() == 16);
 }
 
 void testSample2() {
 	cout << "testSample2\n";
 	LogicalFormula formula("(1)");
-	vector<string> test = formula.createBoolSample(5);
+	vector<string> test = createBoolSample(5);
 
 	assert(test.size() == 32);
 }
@@ -522,7 +520,7 @@ void testSample2() {
 void testSample3() {
 	cout << "testSample3\n";
 	LogicalFormula formula("(1)");
-	vector<string> test = formula.createBoolSample(9);
+	vector<string> test = createBoolSample(9);
 
 	assert(test.size() == 512);
 }
@@ -530,7 +528,7 @@ void testSample3() {
 void testSample4() {
 	cout << "testSample4\n";
 	LogicalFormula formula("(1)");
-	vector<string> test = formula.createBoolSample(7);
+	vector<string> test = createBoolSample(7);
 
 	assert(test.size() == 128);
 }
@@ -550,49 +548,49 @@ void testSample4() {
 void testIsDNF1() {
 	cout << "\ntestIsDNF1\n";
 	LogicalFormula formula("A");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF2() {
 	cout << "testIsDNF2\n";
 	LogicalFormula formula("1");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF3() {
 	cout << "testIsDNF3\n";
 	LogicalFormula formula("(A|B)");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF4() {
 	cout << "testIsDNF4\n";
 	LogicalFormula formula("(A~B)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF5() {
 	cout << "testIsDNF5\n";
 	LogicalFormula formula("(A->B)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF6() {
 	cout << "testIsDNF6\n";
 	LogicalFormula formula("(A&B)");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF7() {
 	cout << "testIsDNF7\n";
 	LogicalFormula formula("(!A)");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF8() {
 	cout << "testIsDNF8\n";
 	LogicalFormula formula("(!(A&B))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 
@@ -600,49 +598,49 @@ void testIsDNF8() {
 void testIsDNF9() {
 	cout << "testIsDNF9\n";
 	LogicalFormula formula("((A|B)|C)");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF10() {
 	cout << "testIsDNF10\n";
 	//                     (   ( (!A)|(!B) ) |  (!C)   )
 	LogicalFormula formula("(((!A)|(!B))|(!C))");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF11() {
 	cout << "testIsDNF11\n";
 	//                      (   !( (A|B)|C )   )
 	LogicalFormula formula("(!((A|B)|C))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF12() {
 	cout << "testIsDNF12\n";
 	//                     (   !(A|B)   )
 	LogicalFormula formula("(!(A|B))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF13() {
 	cout << "testIsDNF13\n";
 	//                      ( (A->B)&C )
 	LogicalFormula formula("((A->B)&C)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF14() {
 	cout << "testIsDNF14\n";
 	//                      (   (A&B) | (!A)   )
 	LogicalFormula formula("((A&B)|(!A))");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF15() {
 	cout << "testIsDNF15\n";
 	//                      (   (!A)~(!B)   )
 	LogicalFormula formula("((!A)~(!B))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 
@@ -651,7 +649,7 @@ void testIsDNF16() {
 	cout << "testIsDNF16\n";
 	//                      (    (  A&( B&(!C) )  ) | (  ((!D)&(E&F)  ) | B)    )
 	LogicalFormula formula("((A&(B&(!C)))|(((!D)&(E&F))|B))");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 
@@ -660,14 +658,14 @@ void testIsDNF17() {
 	cout << "testIsDNF17\n";
 	//                     (   A | (B & (C|D)  )   )
 	LogicalFormula formula("(A|(B&(C|D)))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF18() {
 	cout << "testIsDNF18\n";
 	//                      (   D | (A->(B&C) )  )
 	LogicalFormula formula("(D|(A->(B&C)))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 
@@ -676,44 +674,44 @@ void testIsDNF19() {
 	cout << "testIsDNF19\n";
 	//                      (   (A | (B&C)) | (B&D)    )
 	LogicalFormula formula("((A|(B&C))|(B&D))");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF20() {
 	cout << "testIsDNF20\n";
 	//                      (  (A | (B&C)) | (!B)   )
 	LogicalFormula formula("((A|(B&C))|(!B))");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF21() {
 	cout << "testIsDNF21\n";
 	LogicalFormula formula("((A|(B&C))|(!B)|M)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF22() {
 	cout << "testIsDNF22\n";
 	LogicalFormula formula("(A|C|D)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF23() {
 	cout << "testIsDNF23\n";
 	LogicalFormula formula("((A|C)|D)");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF24() {
 	cout << "testIsDNF24\n";
 	LogicalFormula formula("(1&0&A|C|0&M)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF25() {
 	cout << "testIsDNF25\n";
 	LogicalFormula formula("((1&(0&A))|(C|(0&M)))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 /////////////////////////////////////////////////////
@@ -725,7 +723,7 @@ void testIsDNF25() {
 void testCreatePDNF1() {
 	cout << "\ntestCreatePDNF1\n";
 	LogicalFormula formula("(A|B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (  ( ((!A)&B) | (A&(!B))) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("((((!A)&B)|(A&(!B)))|(A&B))")));
 }
@@ -733,7 +731,7 @@ void testCreatePDNF1() {
 void testCreatePDNF2() {
 	cout << "testCreatePDNF2\n";
 	LogicalFormula formula("(!(A|B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                 (  (!A)&(!B)  )
 	assert(!(pdnf.getFormula().compare("((!A)&(!B))")));
 }
@@ -741,7 +739,7 @@ void testCreatePDNF2() {
 void testCreatePDNF3() {
 	cout << "testCreatePDNF3\n";
 	LogicalFormula formula("(A|(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  ( ( ((!A)&(!B)) | (A&(!B))) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|(A&(!B)))|(A&B))")));
 }
@@ -749,7 +747,7 @@ void testCreatePDNF3() {
 void testCreatePDNF4() {
 	cout << "testCreatePDNF4\n";
 	LogicalFormula formula("((!A)|B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                 (  ( ((!A)&(!B)) | ((!A)&B)) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&B))")));
 }
@@ -757,7 +755,7 @@ void testCreatePDNF4() {
 void testCreatePDNF5() {
 	cout << "testCreatePDNF5\n";
 	LogicalFormula formula("((!A)|(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (  ( ((!A)&(!B)) | ((!A)&B)) | (A&(!B))   )
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&(!B)))")));
 }
@@ -765,7 +763,7 @@ void testCreatePDNF5() {
 void testCreatePDNF6() {
 	cout << "testCreatePDNF6\n";
 	LogicalFormula formula("(A~B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                 (   ( (!A)&(!B) ) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("(((!A)&(!B))|(A&B))")));
 }
@@ -773,7 +771,7 @@ void testCreatePDNF6() {
 void testCreatePDNF7() {
 	cout << "testCreatePDNF7\n";
 	LogicalFormula formula("(!(A~B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (   ((!A)&B) | (A&(!B))   )
 	assert(!(pdnf.getFormula().compare("(((!A)&B)|(A&(!B)))")));
 }
@@ -781,7 +779,7 @@ void testCreatePDNF7() {
 void testCreatePDNF8() {
 	cout << "testCreatePDNF8\n";
 	LogicalFormula formula("(A~(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (   ( (!A)&B ) | ( A&(!B) )   )
 	assert(!(pdnf.getFormula().compare("(((!A)&B)|(A&(!B)))")));
 }
@@ -789,7 +787,7 @@ void testCreatePDNF8() {
 void testCreatePDNF9() {
 	cout << "testCreatePDNF9\n";
 	LogicalFormula formula("((!A)~B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (   ((!A)&B) | (A&(!B))   )
 	assert(!(pdnf.getFormula().compare("(((!A)&B)|(A&(!B)))")));
 }
@@ -797,7 +795,7 @@ void testCreatePDNF9() {
 void testCreatePDNF10() {
 	cout << "testCreatePDNF10\n";
 	LogicalFormula formula("((!A)~(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (   ((!A)&(!B)) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("(((!A)&(!B))|(A&B))")));
 }
@@ -805,7 +803,7 @@ void testCreatePDNF10() {
 void testCreatePDNF11() {
 	cout << "testCreatePDNF11\n";
 	LogicalFormula formula("(A->B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                 (   (((!A)&(!B)) | ((!A)&B)) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&B))")));
 }
@@ -813,7 +811,7 @@ void testCreatePDNF11() {
 void testCreatePDNF12() {
 	cout << "testCreatePDNF12\n";
 	LogicalFormula formula("(!(A->B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  ( A&(!B) )
 	assert(!(pdnf.getFormula().compare("(A&(!B))")));
 }
@@ -821,7 +819,7 @@ void testCreatePDNF12() {
 void testCreatePDNF13() {
 	cout << "testCreatePDNF13\n";
 	LogicalFormula formula("(A->(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (  (((!A)&(!B)) | ((!A)&B)) | (A&(!B))   )
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&(!B)))")));
 }
@@ -829,7 +827,7 @@ void testCreatePDNF13() {
 void testCreatePDNF14() {
 	cout << "testCreatePDNF14\n";
 	LogicalFormula formula("((!A)->B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (   (((!A)&B) | (A&(!B))) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("((((!A)&B)|(A&(!B)))|(A&B))")));
 }
@@ -837,7 +835,7 @@ void testCreatePDNF14() {
 void testCreatePDNF15() {
 	cout << "testCreatePDNF15\n";
 	LogicalFormula formula("((!A)->(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (   (((!A)&(!B)) | (A&(!B))) | (A&B)   )
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|(A&(!B)))|(A&B))")));
 }
@@ -845,35 +843,35 @@ void testCreatePDNF15() {
 void testCreatePDNF16() {
 	cout << "testCreatePDNF16\n";
 	LogicalFormula formula("(A&B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("(A&B)")));
 }
 
 void testCreatePDNF17() {
 	cout << "testCreatePDNF17\n";
 	LogicalFormula formula("(A&(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("(A&(!B))")));
 }
 
 void testCreatePDNF18() {
 	cout << "testCreatePDNF18\n";
 	LogicalFormula formula("((!A)&B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("((!A)&B)")));
 }
 
 void testCreatePDNF19() {
 	cout << "testCreatePDNF19\n";
 	LogicalFormula formula("((!A)&(!B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("((!A)&(!B))")));
 }
 
 void testCreatePDNF20() {
 	cout << "testCreatePDNF20\n";
 	LogicalFormula formula("(!(A&B))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//                                  (   (((!A)&(!B)) | ((!A)&B)) | (A&(!B))   )
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&(!B)))")));
 }
@@ -881,14 +879,14 @@ void testCreatePDNF20() {
 void testCreatePDNF21() {
 	cout << "testCreatePDNF21\n";
 	LogicalFormula formula("(!(!(!(!(A&B)))))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("(A&B)")));
 }
 
 void testCreatePDNF22() {
 	cout << "testCreatePDNF22\n";
 	LogicalFormula formula("(!(!(!(!(!(A&B))))))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//	((((!A)&(!B)) | ((!A)&B)) | (A&(!B)));
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&(!B)))")));
 }
@@ -896,7 +894,7 @@ void testCreatePDNF22() {
 void testCreatePDNF23() {
 	cout << "testCreatePDNF23\n";
 	LogicalFormula formula("((A->B)->C)");
-	LogicalFormula pdnf = formula.createPDNF();   
+	LogicalFormula pdnf = createPDNF(formula);   
 	//(((((((!A)&(!B))&C) | (((!A)&B)&C)) | ((A&(!B))&(!C))) | ((A&(!B))&C)) | ((A&B)&C));
     assert(!(pdnf.getFormula().compare("(((((((!A)&(!B))&C)|(((!A)&B)&C))|((A&(!B))&(!C)))|((A&(!B))&C))|((A&B)&C))")));
 }
@@ -904,7 +902,7 @@ void testCreatePDNF23() {
 void testCreatePDNF24() {
 	cout << "testCreatePDNF24\n";
 	LogicalFormula formula("((A->B)->(!C))");
-	LogicalFormula pdnf = formula.createPDNF();	
+	LogicalFormula pdnf = createPDNF(formula);	
 	//(((((((!A)&(!B))&(!C)) | (((!A)&B)&(!C))) | ((A&(!B))&(!C))) | ((A&(!B))&C)) | ((A&B)&(!C)))
 	assert(!(pdnf.getFormula().compare("(((((((!A)&(!B))&(!C))|(((!A)&B)&(!C)))|((A&(!B))&(!C)))|((A&(!B))&C))|((A&B)&(!C)))")));
 }
@@ -913,7 +911,7 @@ void testCreatePDNF24() {
 void testCreatePDNF25() {
 	cout << "testCreatePDNF25\n";
 	LogicalFormula formula("((A&B)~C)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//((((((!A)&(!B))&(!C)) | (((!A)&B)&(!C))) | ((A&(!B))&(!C))) | ((A&B)&C));
 	assert(!(pdnf.getFormula().compare("((((((!A)&(!B))&(!C))|(((!A)&B)&(!C)))|((A&(!B))&(!C)))|((A&B)&C))")));
 }
@@ -921,7 +919,7 @@ void testCreatePDNF25() {
 void testCreatePDNF26() {
 	cout << "testCreatePDNF26\n";
 	LogicalFormula formula("!A");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//((((((!A)&(!C))&B) | (((!A)&C)&B)) | ((A&(!C))&B)) | ((A&C)&(!B)));
 	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
 }
@@ -929,7 +927,7 @@ void testCreatePDNF26() {
 void testCreatePDNF27() {
 	cout << "testCreatePDNF27\n";
 	LogicalFormula formula("A|B&C)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 
 	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
 }
@@ -942,63 +940,63 @@ void testCreatePDNF27() {
 void testCreatePDNF28() {
 	cout << "testCreatePDNF28\n";
 	LogicalFormula formula("(A&0)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("")));
 }
 
 void testCreatePDNF29() {
 	cout << "testCreatePDNF29\n";
 	LogicalFormula formula("(A|0)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("A")));
 }
 
 void testCreatePDNF30() {
 	cout << "testCreatePDNF30\n";
 	LogicalFormula formula("((!A)&0)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("")));
 }
 
 void testCreatePDNF31() {
 	cout << "testCreatePDNF31\n";
 	LogicalFormula formula("((!A)&1)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("(!A)")));
 }
 
 void testCreatePDNF32() {
 	cout << "testCreatePDNF32\n";
 	LogicalFormula formula("((!A)|1)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("((!A)|A)")));
 }
 
 void testCreatePDNF33() {
 	cout << "testCreatePDNF33\n";
 	LogicalFormula formula("((!A)->1)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("((!A)|A)")));
 }
 
 void testCreatePDNF34() {
 	cout << "testCreatePDNF34\n";
 	LogicalFormula formula("(A~1)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("A")));
 }
 
 void testCreatePDNF35() {
 	cout << "testCreatePDNF35\n";
 	LogicalFormula formula("((A->0)~(B->1))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("(((!A)&(!B))|((!A)&B))")));
 }
 
 void testCreatePDNF36() {
 	cout << "testCreatePDNF36\n";
 	LogicalFormula formula("((A->0)&0)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("")));
 }
 
@@ -1006,28 +1004,28 @@ void testCreatePDNF36() {
 void testCreatePDNF37() {
 	cout << "testCreatePDNF37\n";
 	LogicalFormula formula("(A|1)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("((!A)|A)")));
 }
 
 void testCreatePDNF38() {
 	cout << "testCreatePDNF38\n";
 	LogicalFormula formula("(A~0)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("(!A)")));
 }
 
 void testCreatePDNF39() {
 	cout << "testCreatePDNF39\n";
 	LogicalFormula formula("(!(A~0))");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	assert(!(pdnf.getFormula().compare("A")));
 }
 
 void testCreatePDNF40() {
 	cout << "testCreatePDNF40\n";
 	LogicalFormula formula("((!(A~0))->B)");
-	LogicalFormula pdnf = formula.createPDNF();
+	LogicalFormula pdnf = createPDNF(formula);
 	//((((!A)&(!B)) | ((!A)&B)) | (A&B));
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&B))")));
 }
@@ -1035,61 +1033,61 @@ void testCreatePDNF40() {
 void testIsDNF26() {
 	cout << "testIsDNF26\n";
 	LogicalFormula formula("(1&A)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF27() {
 	cout << "testIsDNF27\n";
 	LogicalFormula formula("(1->A)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF28() {
 	cout << "testIsDNF28\n";
 	LogicalFormula formula("!(1->A)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF29() {
 	cout << "testIsDNF29\n";
 	LogicalFormula formula("((!A))");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF30() {
 	cout << "testIsDNF30\n";
 	LogicalFormula formula("(!A)");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void testIsDNF31() {
 	cout << "testIsDNF31\n";
 	LogicalFormula formula("((!A)&0)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF32() {
 	cout << "testIsDNF32\n";
 	LogicalFormula formula("((A&0)|1)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF33() {
 	cout << "testIsDNF33\n";
 	LogicalFormula formula("((A&0)->1)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF34() {
 	cout << "testIsDNF34\n";
 	LogicalFormula formula("(A&B&C|E)");
-	assert(formula.isDNF(&formula) == false);
+	assert(isDNF(&formula) == false);
 }
 
 void testIsDNF35() {
 	cout << "testIsDNF35\n";
 	LogicalFormula formula("(((A&B)&C)|E)");
-	assert(formula.isDNF(&formula) == true);
+	assert(isDNF(&formula) == true);
 }
 
 void(*tests[])() = {

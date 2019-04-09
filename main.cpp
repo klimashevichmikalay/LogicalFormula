@@ -9,18 +9,20 @@
 // источник информации - дисциплина ОАИП, автор - Гуревич А. В.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//константа не входит в сднф
 #include "tests.h"
 #include <iostream>
 #include <string>
 #include <vector>
+
 void testIsDNF();
 void createPDNF();
 void startTests();
 void coutPDNF(string str);
-int main() {
+
+int main()
+{
 	using namespace std;
-		startTests();
+	//startTests();
 	//createPDNF();
 	//testIsDNF();
 	std::cin.get();
@@ -66,7 +68,7 @@ void createPDNF()
 		cin >> _formula;
 		LogicalFormula formula(_formula);
 		cout << endl << "\nPDNF:\n";
-		LogicalFormula pdnf = formula.createPDNF();
+		LogicalFormula pdnf = createPDNF(formula);
 		coutPDNF(pdnf.getFormula());
 	} while (_formula != "q");
 }
@@ -76,10 +78,11 @@ void testIsDNF()
 	string _formula = "sss";
 	while (_formula != "q")
 	{
+
 		cout << "\n\n\nInpute logical formula(q for quit): ";
 		cin >> _formula;
 		LogicalFormula formula(_formula);
-		if (formula.isDNF(&formula))
+		if (isDNF(&formula))
 			cout << endl << "It is DNF";
 		else
 			cout << endl << "It is not DNF";
