@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// файл с реализациями функций из файла "Algorithm.h"
+// написан студентом группы 621702 БГУИР Климашевичем Н. А.
+// автор идей - студент группы 621702 БГУИР Климашевич Н. А. 
+// более подробная информация в файле "Algorithm.h"
+// файл создан 09.04.2019
+// последнее изменение - 09.04.2019
+// источник информации - дисциплина ОАИП, автор - Гуревич А. В.; дисциплина ППВИС, автор - Романов В. И.
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #include "Algorithms.h"
 
 std::string setBracketsConjunct(std::string str)
@@ -241,10 +251,14 @@ bool  isDNF(LogicalFormula*  _formula, bool flag)
 	if (_formula == NULL)
 		return true;
 
+	std::string formula = _formula->getFormula();
+	if(_formula->getType() == BRACKETS && _formula->getRight()->getRight() == NULL)
+		return false;
+
 	if (!flag && !_formula->isFormula())
 		return false;
 
-	if ((strchr(_formula->getFormula().c_str(), '0') || strchr(_formula->getFormula().c_str(), '1')))
+	if ((strchr(formula.c_str(), '0') || strchr(formula.c_str(), '1')))
 		return false;
 
 	if (_formula == NULL || isСonjunct(_formula))

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Тесты к лабораторным работам 1-2 по дисциплине ЛОИС
-// Написаны студентом группы 621702 БГУИР Климашевичем Н. А.
-// Автор всех тестов - студент группы 621702 БГУИР Климашевич Н. А. 
-// Файл содержит тесты к лабораторным работам 1-2 по ЛОИС
-// Изменения описаны в файле "LogicalFormula.h"
-// Источник идеи: статья на хабре "Юнит-тестирование для чайников"
+// тесты к лабораторным работам 1-2 по дисциплине ЛОИС
+// написаны студентом группы 621702 БГУИР Климашевичем Н. А.
+// автор всех тестов - студент группы 621702 БГУИР Климашевич Н. А. 
+// файл содержит тесты к лабораторным работам 1-2 по ЛОИС
+// изменения описаны в файле "LogicalFormula.h"
+// источник идеи: статья на хабре "Юнит-тестирование для чайников"
 // ссылка статьи: https://habr.com/ru/post/169381/
 // автор статьи: Максим Аршинов.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1030,6 +1030,46 @@ void testCreatePDNF40() {
 	assert(!(pdnf.getFormula().compare("((((!A)&(!B))|((!A)&B))|(A&B))")));
 }
 
+void testCreatePDNF41() {
+	cout << "testCreatePDNF41\n";
+	LogicalFormula formula("");
+	LogicalFormula pdnf = createPDNF(formula);
+
+	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
+}
+
+void testCreatePDNF42() {
+	cout << "testCreatePDNF42\n";
+	LogicalFormula formula("()");
+	LogicalFormula pdnf = createPDNF(formula);
+
+	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
+}
+
+void testCreatePDNF43() {
+	cout << "testCreatePDNF43\n";
+	LogicalFormula formula("((!A)A)");
+	LogicalFormula pdnf = createPDNF(formula);
+
+	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
+}
+
+void testCreatePDNF44() {
+	cout << "testCreatePDNF44\n";
+	LogicalFormula formula("(((!A)A)->((!A)A))");
+	LogicalFormula pdnf = createPDNF(formula);
+
+	assert(!(pdnf.getFormula().compare("\nFormula has syntax error. ")));
+}
+
+void testCreatePDNF45() {
+	cout << "testCreatePDNF45\n";
+	LogicalFormula formula("((!A)&A)");
+	LogicalFormula pdnf = createPDNF(formula);
+
+	assert(!(pdnf.getFormula().compare("")));
+}
+
 void testIsDNF26() {
 	cout << "testIsDNF26\n";
 	LogicalFormula formula("(1&A)");
@@ -1087,6 +1127,36 @@ void testIsDNF34() {
 void testIsDNF35() {
 	cout << "testIsDNF35\n";
 	LogicalFormula formula("(((A&B)&C)|E)");
+	assert(isDNF(&formula) == true);
+}
+
+void testIsDNF36() {
+	cout << "testIsDNF36\n";
+	LogicalFormula formula("");
+	assert(isDNF(&formula) == false);
+}
+
+void testIsDNF37() {
+	cout << "testIsDNF37\n";
+	LogicalFormula formula("((!A)A)");
+	assert(isDNF(&formula) == false);
+}
+
+void testIsDNF38() {
+	cout << "testIsDNF38\n";
+	LogicalFormula formula("9");
+	assert(isDNF(&formula) == false);
+}
+
+void testIsDNF39() {
+	cout << "testIsDNF39\n";
+	LogicalFormula formula("(A)");
+	assert(isDNF(&formula) == false);
+}
+
+void testIsDNF40() {
+	cout << "testIsDNF40\n";
+	LogicalFormula formula("(!A)");
 	assert(isDNF(&formula) == true);
 }
 
@@ -1209,7 +1279,11 @@ testIsDNF32,
 testIsDNF33,
 testIsDNF34,
 testIsDNF35,
-
+testIsDNF36,
+testIsDNF37,
+testIsDNF38,
+testIsDNF39,
+testIsDNF40,
 //////////////////////////////////////////////
 //конец тестов для лабораторной работы №1
 //////////////////////////////////////////////
@@ -1259,6 +1333,11 @@ testCreatePDNF37,
 testCreatePDNF38,
 testCreatePDNF39,
 testCreatePDNF40,
+testCreatePDNF41,
+testCreatePDNF42,
+testCreatePDNF43,
+testCreatePDNF44,
+testCreatePDNF45,
 
 //конец тестов для лабораторной работы №2
 NULL
